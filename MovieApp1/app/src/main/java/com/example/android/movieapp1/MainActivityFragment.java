@@ -193,6 +193,10 @@ public class MainActivityFragment extends Fragment {
             return this.popularity;
         }
 
+        public String getReleaseDate() {
+            return this.release_date;
+        }
+
         @Override
         public void writeToParcel(Parcel dest, int flags) {
 
@@ -201,6 +205,7 @@ public class MainActivityFragment extends Fragment {
             dest.writeString(popularity);
             dest.writeString(vote_average);
             dest.writeString(overview);
+            dest.writeString(release_date);
 
         }
 
@@ -210,6 +215,7 @@ public class MainActivityFragment extends Fragment {
             popularity = in.readString();
             vote_average = in.readString();
             overview = in.readString();
+            release_date = in.readString();
         }
 
 
@@ -287,11 +293,7 @@ public class MainActivityFragment extends Fragment {
             viewHolder.textView.setText(moviePoster.getMovieNames());
             String poster = moviePoster.getMoviePosterLocation();
            // poster = "http://image.tmdb.org/t/p/w342//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg";
-            if (poster != null) {
-                Log.v(APP_TAG, poster);
-            } else {
-                Log.v(APP_TAG, "Image location is null");
-            }
+
             Picasso.with(mContext).load(poster).into(viewHolder.imageView);
             // viewHolder.imageView.setImageResource(moviePoster.getMoviePoster());
             return convertView;
@@ -341,13 +343,16 @@ public class MainActivityFragment extends Fragment {
 
                 final String CERTIFICATION_KEY = "certification_country";
                 final String CERTIFICATION_VAL = "US";
+                final String LANGUAGE_KEY = "language";
+                final String LANGUAGE_VAL = "en";
                 final String MOVIEDB_BASE_URL =
                         "https://api.themoviedb.org/3/discover/movie";
 
                 Uri builtUri = Uri.parse(MOVIEDB_BASE_URL).buildUpon()
-                        .appendQueryParameter(CERTIFICATION_KEY, CERTIFICATION_VAL)
+                     //   .appendQueryParameter(CERTIFICATION_KEY, CERTIFICATION_VAL)
                         .appendQueryParameter(SORT_KEY, POPULAR_PARAM)
                         .appendQueryParameter(API_KEY_PARAM, API_KEY)
+                        .appendQueryParameter(LANGUAGE_KEY, LANGUAGE_VAL)
                         .build();
 
                 try {
@@ -445,7 +450,7 @@ public class MainActivityFragment extends Fragment {
 
             for (int i = 0; i < movieArray.length(); i++) {
 
-                Log.v(APP_TAG, movieArray.get(i).toString());
+               // Log.v(APP_TAG, movieArray.get(i).toString());
 
                 // Get the JSON object representing a movide
                 JSONObject movie = movieArray.getJSONObject(i);
