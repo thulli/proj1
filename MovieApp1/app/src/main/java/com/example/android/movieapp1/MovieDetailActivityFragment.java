@@ -33,6 +33,7 @@ public class MovieDetailActivityFragment extends Fragment {
         String vote_average;
         String popularity;
         String poster_path;
+        String release_date;
 
 
 
@@ -45,6 +46,7 @@ public class MovieDetailActivityFragment extends Fragment {
         popularity = mvInfo.getPopularity();
         title = mvInfo.getMovieNames();
         poster_path = mvInfo.getMoviePosterLocation();
+        release_date = mvInfo.getReleaseDate();
 
 
         View rootView = inflater.inflate(R.layout.fragment_movie_detail, container, false);
@@ -63,7 +65,7 @@ public class MovieDetailActivityFragment extends Fragment {
         TextView overView = (TextView) rootView.findViewById(R.id.movie_overview);
         //TextView popularityView = (TextView) rootView.findViewById(R.id.popularity);
 
-        movieName.setText(mvInfo.getMovieNames());
+        movieName.setText(mvInfo.getMovieNames() + " " + "( " + release_date + " )");
         overView.setText(overview);
        // popularityView.setText(popularity);
 
